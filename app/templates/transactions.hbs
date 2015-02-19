@@ -1,0 +1,81 @@
+<h2>Cookie Transactions</h2>
+<form>
+	<p class="deposit-introduction">
+		{{view "select"
+			content=girls
+			value=currentGirlId
+			optionValuePath="content.id"
+			optionLabelPath="content.name"
+			prompt="Select a girl"
+		}}
+		deposited ${{input type="number" step="1" value=moneyGiven}}, and...
+	</p>
+	<table>
+		<tr class="table-headers">
+			<th></th>
+			<th>sold</th>
+			<th>returned</th>
+			<th>was given</th>
+		</tr>		
+		{{#each cookie in cookies}}
+			<tr class="cookie" {{bind-attr data-cookie="cookie.slug"}}>
+				<td class="cookie-name">{{cookie.name}}</td>
+				<td data-transaction-type="sold">
+					{{input type="number" step="1"}}
+				</td>
+				<td data-transaction-type="returned">
+					{{input type="number" step="1"}}
+				</td>
+				<td data-transaction-type="given">
+					{{input type="number" step="1"}}
+				</td>
+			</tr>
+		{{/each}}
+	</table>
+	{{#if currentGirl.amountOwed}}
+		<p>{{currentGirl.name}} owes ${{currentGirl.amountOwed}}</p>
+	{{/if}}
+	<button type="submit" {{action "addTransaction"}}>Add Transaction</button>
+</form>
+<section class="transaction-list">
+	{{#each transaction in reverseSortedTransactions}}
+		<div class="transaction">
+			<time>{{transaction.formattedDate}}</time>
+			<div class="girls-name">{{transaction.girl.name}}</div>
+			{{#if transaction.moneyGiven}}
+				<label>
+					Money Given:
+					<span>${{transaction.moneyGiven}}</span>
+				</label>
+			{{/if}}
+			<div class="cookie-transactions">
+				{{#each cookieTransaction in transaction.cookieTransactions}}
+					<div>
+						<span class="cookie-name">{{cookieTransaction.cookie.name}}:</span>
+						{{#if cookieTransaction.sold}}
+							<label>
+								Sold
+								<span>{{cookieTransaction.sold}}</span>
+							</label>
+						{{/if}}
+						{{#if cookieTransaction.returned}}
+							<label>
+								Returned
+								<span>{{cookieTransaction.returned}}</span>
+							</label>
+						{{/if}}
+						{{#if cookieTransaction.given}}
+							<label>
+								Was Given
+								<span>{{cookieTransaction.given}}</span>
+							</label>
+						{{/if}}
+					</div>
+				{{/each}}
+			</div>
+			<div class="remove-button" {{action "removeTransaction" transaction}}>
+				<i>X</i>
+			</div>
+		</div>
+	{{/each}}
+</section>

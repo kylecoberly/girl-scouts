@@ -6,6 +6,15 @@ module.exports = function(environment) {
     environment: environment,
     baseURL: '/',
     locationType: 'auto',
+    contentSecurityPolicy: {
+      'script-src': "'self' 'unsafe-eval' http://*:35729",
+      'font-src': "'self' http://fonts.gstatic.com",
+      'connect-src': "'self' *",
+      'style-src': "'self' 'unsafe-inline' http://fonts.googleapis.com",
+    },
+    sassOptions: {
+      outputFile: "girl-scouts.css"
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

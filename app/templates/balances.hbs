@@ -1,0 +1,33 @@
+<h2>Balances</h2>
+<section class="troop-balance">
+	<h3>Troop</h3>
+	<table>
+		<tr class="table-headers">
+			<th></th>
+			<th>In Stock</th>
+			<th>Outstanding</th>
+		</tr>
+		{{#each cookie in cookies}}
+			<tr>
+				<td class="cookie-name">{{cookie.name}}</td>
+				<td>Something</td>
+				<td>Something</td>
+			</tr>
+		{{/each}}
+	</table>
+</section>
+<section class="girl-balances">
+	{{#each girl in girls}}
+		<div class="girl-balance">
+			<h3>{{girl.name}}</h3>
+			{{#each cookie in cookies}}
+				<div class="cookie">
+					<h4>{{cookie.name}}</h4> - <span>3</span>
+				</div>
+			{{/each}}
+			<p>
+				{{girl.name}} has <strong>{{girl.outstandingBoxes}}</strong> boxes and owes <strong>${{girl.outstandingDollars}}</strong>
+			</p>
+		</div>
+	{{/each}}
+</section>

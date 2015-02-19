@@ -1,0 +1,43 @@
+section.troop-balance {
+	background-color: hsl(0, 0%, 85%);
+	margin-top: 1rem;
+	padding: 1rem;
+	h3 {
+		font-weight: 600;
+		font-size: 1.5rem;
+	}
+	table {
+		width: 100%;
+		tr {
+			td {
+				width: 33%;
+				text-align: center;
+			}
+			td.cookie-name {
+				font-weight: 600;
+				text-align: right;
+			}
+		}
+	}
+}
+
+section.girl-balances {
+	margin-top: 1rem;
+	padding: 1rem;
+	h3 {
+		font-weight: 600;
+		font-size: 1.5rem;
+	}
+	div.girl-balance {
+		margin-bottom: 1rem;
+		h4 {
+			display: inline;
+		}
+		p {
+			padding-left: 1rem;
+		}
+		div.cookie {
+			padding-left: 1rem;
+		}
+	}
+}
