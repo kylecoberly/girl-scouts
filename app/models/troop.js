@@ -4,7 +4,8 @@ var Troop = DS.Model.extend({
 	slug: DS.attr("string"),
 	name: DS.attr("string"),
 	amountOwed: DS.attr("number"),
-	cookieStocks: DS.hasMany("cookieStock", {async: true})
+	cookieStocks: DS.hasMany("cookieStock", {async: true}),
+	girls: DS.hasMany("girl", {async: true})
 });
 
 Troop.reopenClass({

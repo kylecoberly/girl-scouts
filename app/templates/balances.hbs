@@ -7,27 +7,34 @@
 			<th>In Stock</th>
 			<th>Outstanding</th>
 		</tr>
-		{{#each cookie in cookies}}
+		{{#each cookieStock in troop.cookieStocks}}
 			<tr>
-				<td class="cookie-name">{{cookie.name}}</td>
-				<td>Something</td>
-				<td>Something</td>
+				<td class="cookie-name">{{cookieStock.cookie.name}}</td>
+				<td>{{cookieStock.quantity}}</td>
+				<td>TBD</td>
 			</tr>
 		{{/each}}
+		<tr class="totals">
+			<td colspan="3">
+				Total amount outstanding: <span class="total-amount">${{totalAmountOutstanding}}</span>
+			</td>
+		</tr>
 	</table>
 </section>
 <section class="girl-balances">
 	{{#each girl in girls}}
-		<div class="girl-balance">
-			<h3>{{girl.name}}</h3>
-			{{#each cookie in cookies}}
-				<div class="cookie">
-					<h4>{{cookie.name}}</h4> - <span>3</span>
-				</div>
-			{{/each}}
-			<p>
-				{{girl.name}} has <strong>{{girl.outstandingBoxes}}</strong> boxes and owes <strong>${{girl.outstandingDollars}}</strong>
-			</p>
-		</div>
+		{{#if girl.cookieStocks}}
+			<div class="girl-balance">
+				<h3>{{girl.name}}</h3>
+				{{#each cookieStock in girl.cookieStocks}}
+					<div class="cookie">
+						<h4>{{cookieStock.cookie.name}}</h4> - <span>{{cookieStock.quantity}}</span>
+					</div>
+				{{/each}}
+				<p>
+					{{girl.name}} has <strong>{{girl.outstandingBoxes}}</strong> boxes and owes <strong>${{girl.outstandingDollars}}</strong>
+				</p>
+			</div>
+		{{/if}}
 	{{/each}}
 </section>

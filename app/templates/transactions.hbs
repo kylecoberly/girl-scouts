@@ -1,5 +1,5 @@
 <h2>Cookie Transactions</h2>
-<form>
+<form {{action "addTransaction" on="submit"}}>
 	<p class="deposit-introduction">
 		{{view "select"
 			content=girls
@@ -7,8 +7,9 @@
 			optionValuePath="content.id"
 			optionLabelPath="content.name"
 			prompt="Select a girl"
+			required=true
 		}}
-		deposited ${{input type="number" step="1" value=moneyGiven}}, and...
+		deposited ${{input type="number" step="1" value=moneyGiven min="0"}}, and...
 	</p>
 	<table>
 		<tr class="table-headers">
@@ -21,13 +22,13 @@
 			<tr class="cookie" {{bind-attr data-cookie="cookie.slug"}}>
 				<td class="cookie-name">{{cookie.name}}</td>
 				<td data-transaction-type="sold">
-					{{input type="number" step="1"}}
+					{{input type="number" step="1" min="0"}}
 				</td>
 				<td data-transaction-type="returned">
-					{{input type="number" step="1"}}
+					{{input type="number" step="1" min="0"}}
 				</td>
 				<td data-transaction-type="given">
-					{{input type="number" step="1"}}
+					{{input type="number" step="1" min="0"}}
 				</td>
 			</tr>
 		{{/each}}
@@ -35,7 +36,7 @@
 	{{#if currentGirl.amountOwed}}
 		<p>{{currentGirl.name}} owes ${{currentGirl.amountOwed}}</p>
 	{{/if}}
-	<button type="submit" {{action "addTransaction"}}>Add Transaction</button>
+	<button type="submit">Add Transaction</button>
 </form>
 <section class="transaction-list">
 	{{#each transaction in reverseSortedTransactions}}
@@ -74,7 +75,7 @@
 				{{/each}}
 			</div>
 			<div class="remove-button" {{action "removeTransaction" transaction}}>
-				<i>X</i>
+				<i class="fa fa-times"></i>
 			</div>
 		</div>
 	{{/each}}

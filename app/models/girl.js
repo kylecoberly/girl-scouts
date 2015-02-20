@@ -3,7 +3,22 @@ import DS from 'ember-data';
 var Girl = DS.Model.extend({
 	slug: DS.attr("string"),
 	name: DS.attr("string"),
-	amountOwed: DS.attr("number"),
+	outstandingDollars: function(){
+		var outstandingDollars = 0;
+		this.get("cookieStocks").forEach(function(cookieStock){
+			var numberOfBoxes = cookieStock.get("quantity");
+			var price = cookieStock.get("cookie.price");
+			outstandingDollars += (numberOfBoxes * price);
+		});
+		return outstandingDollars;
+	}.property("outstandingBoxes"),
+	outstandingBoxes: function(){
+		var outstandingBoxes = 0;
+		this.get("cookieStocks").forEach(function(cookieStock){
+			outstandingBoxes += cookieStock.get("quantity");
+		});
+		return outstandingBoxes;
+	}.property("cookieStocks.@each"),
 	cookieStocks: DS.hasMany("cookieStock", {async: true})
 });
 
@@ -18,7 +33,6 @@ Girl.reopenClass({
 			id: 2,
 			slug: "girl-2",
 			name: "Girl Two",
-			amountOwed: 34,
 			cookieStocks: [2,3]
 		},{
 			id: 3,

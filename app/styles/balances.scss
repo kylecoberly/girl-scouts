@@ -14,8 +14,18 @@ section.troop-balance {
 				text-align: center;
 			}
 			td.cookie-name {
-				font-weight: 600;
+				font-style: italic;
 				text-align: right;
+			}
+		}
+		tr.totals {
+			td {
+				padding-top: 1rem;
+				text-align: left;
+				span.total-amount {
+					font-style: normal;
+					font-weight: 600;
+				}
 			}
 		}
 	}

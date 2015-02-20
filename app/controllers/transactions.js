@@ -50,15 +50,59 @@ export default Ember.Controller.extend({
 		});
 		return transaction;
 	},
+	updateInventory: function(actor, cookie, amount){
+		var foundCookieStock = null;
+		actor.get("cookieStocks").forEach(function(cookieStock){
+			if (cookieStock.get("cookie.name") === cookie.get("name")){
+				cookieStock.set("quantity", (cookieStock.get("quantity") + amount));
+				foundCookieStock = cookieStock;
+			}
+		});
+		if (!cookieStockFound){
+			var cookieStock = this.store.createRecord("cookieStock");
+			cookieStock.set("cookie", cookie);
+			cookieStock.set("quantity", amount);
+			return cookieStock.save().then(function(){
+				return actor.get("cookieStocks").addObject(cookieStock);
+			});
+		} else {
+			return foundCookieStock.save();
+		}
+	},
+	updateGirlDebt: function(girl, amount){
+		girl.set("amountOwed", girl.get("amountOwed") - amount);
+		return girl.save();
+	},
 	resetForm: function(){
 		Ember.$("form")[0].reset();
 	},
 	actions: {
 		removeTransaction: function(transaction){
 			transaction.destroyRecord();
+			/* Inverse of addTransaction stuff */
 		},
 		addTransaction: function(){
+			var controller = this;
 			var transaction = this.buildTransaction();
+			
+			transaction.get("cookieTransactions").forEach(function(cookieTransaction){
+				if (cookieTransaction.get("sold") > 0){
+					controller.updateInventory(transaction.get("girl"), cookieTransaction.get("cookie"), (cookieTransaction.get("sold") * -1));
+				}
+				if (cookieTransaction.get("returned") > 0){
+					controller.updateInventory(transaction.get("girl"), cookieTransaction.get("cookie"), (cookieTransaction.get("returned") * -1));
+					controller.updateInventory(controller.get("troop"), cookieTransaction.get("cookie"), cookieTransaction.get("returned"));
+				}
+				if (cookieTransaction.get("given") > 0){
+					controller.updateInventory(controller.get("troop"), cookieTransaction.get("cookie"), (cookieTransaction.get("given") * -1));
+					controller.updateInventory(transaction.get("girl"), cookieTransaction.get("cookie"), cookieTransaction.get("given"));
+				}
+				var dollarValue = cookieTransaction.dollarValue();
+				if (dollarValue !== 0){
+					controller.updateGirlDebt(transaction.get("girl"), dollarValue);
+				} 
+			});
+
 			transaction.save();
 			this.resetForm();
 		}

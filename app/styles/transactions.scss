@@ -1,7 +1,7 @@
 form {
 	p.deposit-introduction {
 		display: inline-block;
-		padding-top: 1rem;
+		margin-top: 2rem;
 		font-size: 1.25rem;
 		input {
 			width: 3rem;
@@ -12,7 +12,7 @@ form {
 		}
 	}
 	table {
-		margin-top: 1.25rem;
+		margin-top: 0.5rem;
 		border-collapse: collapse;
 		tr {
 			margin-top: 1rem;
@@ -49,9 +49,10 @@ form {
 		background-color: hsl(155, 100%, 30%);
 		width: 100%;
 		font-weight: 700;
+		font-size: 16px;
 		color: white;
 		padding: 1rem;
-		margin-top: 2rem;
+		margin-top: 1rem;
 	}
 	button[type=submit]:hover {
 		background-color: hsl(155, 100%, 40%);
@@ -61,8 +62,8 @@ form {
 
 section.transaction-list {
 	margin-top: 2rem;
-	padding: 1rem;
-	background-color: hsl(0, 0%, 95%);
+	//padding: 1rem;
+	//background-color: hsl(0, 0%, 95%);
 	div.transaction {
 		padding: 1rem;
 		background-color: hsl(0, 0%, 90%);
@@ -88,5 +89,6 @@ section.transaction-list {
 		color: #f00;
 		cursor: pointer;
 		font-weight: 700;
+		font-size: 30px;
 	}
 }
