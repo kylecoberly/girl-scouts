@@ -34,6 +34,8 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.apiUrl = "http://localhost:3100";
+    ENV.apiNamespace = "";
   }
 
   if (environment === 'test') {
@@ -49,7 +51,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.apiUrl = "http://girl-scout-cookies.herokuapp.com";
+    ENV.apiNamespace = "";
   }
 
   return ENV;

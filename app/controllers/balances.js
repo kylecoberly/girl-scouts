@@ -7,5 +7,5 @@ export default Ember.Controller.extend({
 			totalAmountOutstanding += girl.get("outstandingDollars");
 		});
 		return totalAmountOutstanding;
-	}.property("girls.@each")
+	}.property("girls.@each.outstandingDollars")
 });

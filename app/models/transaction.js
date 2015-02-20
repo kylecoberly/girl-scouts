@@ -14,18 +14,6 @@ var Transaction = DS.Model.extend({
 
 Transaction.reopenClass({
 	FIXTURES: [
-		{
-			id: 1,
-			date: 1424327741000,
-			moneyGiven: 17.01,
-			girl: 3,
-			cookieTransactions: [1,2]
-		},{
-			id: 2,
-			date: 1424328741000,
-			girl: 2,
-			cookieTransactions: [3]
-		}
 	]
 });
 

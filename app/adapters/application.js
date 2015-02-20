@@ -1,4 +1,7 @@
 import DS from 'ember-data';
+import ENV from '../config/environment';
 
-export default DS.FixtureAdapter.extend({
+export default DS.RESTAdapter.extend({
+	host: ENV.apiUrl,
+	namespace: ENV.apiNamespace,
 });
